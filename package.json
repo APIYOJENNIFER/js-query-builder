@@ -12,6 +12,7 @@
     "test:watch": "nwb test --server"
   },
   "dependencies": {
+    "nanoid": "^4.0.2"
   },
   "devDependencies": {
     "nwb": "0.25.x"
