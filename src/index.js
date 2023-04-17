@@ -21,9 +21,12 @@ const comb = "AND";
 
     logicalDropdownList.addEventListener("change", (e) => {
        rulesObj.combinator = e.target.value
+       outPutJson()
     });
 
 let rulesObj = {id: nanoid(), combinator: comb, rules:[]}
+
+outPutJson()
 
 function addNewRule(field, operator, value){
     return {
@@ -77,6 +80,8 @@ function addRule() {
 
     rulesObj.rules.push(addNewRule(field, operator, value));
 
+    outPutJson()
+
     let id = "";
     let getId = function(){
         rulesObj.rules.map(rule => {
@@ -107,6 +112,7 @@ function onFieldChange(selectStudentInfo, id){
                 rule.field = e.target.value;
             }
       })
+      outPutJson()
   })
 }
 
@@ -117,6 +123,7 @@ function onOperatorChange(selectComparisonOp, id){
                 rule.operator = e.target.value;
             }
         })
+        outPutJson()
     })
 }
 
@@ -127,15 +134,24 @@ function onValueChange(input, id){
                 rule.value = e.target.value;
             }
         })
+        outPutJson()
     })
 }
 
 function onDeleteRule(deleteRule, id){
     deleteRule.addEventListener("click", function(){
-        rulesObj.rules.pop(id);
+        rulesObj.rules = rulesObj.rules.filter(rule => rule.id !== id)
         
         let node = document.getElementById(id)
         rulesList.removeChild(node)
 
+        outPutJson()
     })
+}
+
+function outPutJson(){
+    let outPutJson = document.getElementById("output-json");
+    if(outPutJson){
+        outPutJson.innerHTML = JSON.stringify(rulesObj, null, 2)
+    }
 }
