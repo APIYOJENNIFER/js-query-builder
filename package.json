@@ -9,13 +9,21 @@
     "start": "nwb serve-web-app --reload",
     "test": "nwb test",
     "test:coverage": "nwb test --coverage",
-    "test:watch": "nwb test --server"
+    "test:watch": "nwb test --server",
+    "lint": "npx eslint src test",
+    "lint:fix": "npm run lint -- --fix",
+    "prettier": "npx prettier src test --check",
+    "prettier:fix": "npm run prettier -- --write",
+    "format": "npm run prettier:fix && npm run lint:fix"
   },
   "dependencies": {
     "nanoid": "^4.0.2"
   },
   "devDependencies": {
-    "nwb": "0.25.x"
+    "eslint": "^8.38.0",
+    "eslint-config-prettier": "^8.8.0",
+    "nwb": "0.25.x",
+    "prettier": "2.8.7"
   },
   "author": "",
   "license": "MIT",

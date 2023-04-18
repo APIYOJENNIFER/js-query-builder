@@ -1,6 +1,6 @@
 const logical = {
-    and: "AND",
-    or: "OR"
-  };
-  
-  export default logical;
+  and: "AND",
+  or: "OR",
+};
+
+export default logical;
