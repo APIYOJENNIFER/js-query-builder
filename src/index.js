@@ -19,15 +19,15 @@ logicalArray.forEach(function (item) {
 
 const comb = "AND";
 
-logicalDropdownList.addEventListener("change", (e) => {
-  rulesObj.combinator = e.target.value;
-});
-
-let rulesObj = {
+const rulesObj = {
   id: nanoid(),
   combinator: comb,
   rules: [],
 };
+
+logicalDropdownList.addEventListener("change", (e) => {
+  rulesObj.combinator = e.target.value;
+});
 
 function addNewRule(field, operator, value) {
   return {
@@ -38,9 +38,47 @@ function addNewRule(field, operator, value) {
   };
 }
 
-document.getElementById("btn-add-rule").addEventListener("click", addRule);
-
 const rulesList = document.getElementById("rules-list");
+
+function onFieldChange(selectStudentInfo, id) {
+  selectStudentInfo.addEventListener("change", function (e) {
+    rulesObj.rules.map((rule) => {
+      if (rule.id === id) {
+        rule.field = e.target.value;
+      }
+    });
+  });
+}
+
+function onOperatorChange(selectComparisonOp, id) {
+  selectComparisonOp.addEventListener("change", function (e) {
+    rulesObj.rules.map((rule) => {
+      if (rule.id === id) {
+        rule.operator = e.target.value;
+      }
+    });
+  });
+}
+
+function onValueChange(input, id) {
+  input.addEventListener("input", function (e) {
+    rulesObj.rules.map((rule) => {
+      if (rule.id === id) {
+        rule.value = e.target.value;
+      }
+    });
+  });
+}
+
+function onDeleteRule(deleteRule, id) {
+  deleteRule.addEventListener("click", function () {
+    rulesObj.rules.pop(id);
+
+    const node = document.getElementById(id);
+    rulesList.removeChild(node);
+  });
+}
+
 function addRule() {
   const studentsArray = [];
   for (const key in studentsData) {
@@ -104,41 +142,4 @@ function addRule() {
   onDeleteRule(deleteRule, id);
 }
 
-function onFieldChange(selectStudentInfo, id) {
-  selectStudentInfo.addEventListener("change", function (e) {
-    rulesObj.rules.map((rule) => {
-      if (rule.id === id) {
-        rule.field = e.target.value;
-      }
-    });
-  });
-}
-
-function onOperatorChange(selectComparisonOp, id) {
-  selectComparisonOp.addEventListener("change", function (e) {
-    rulesObj.rules.map((rule) => {
-      if (rule.id === id) {
-        rule.operator = e.target.value;
-      }
-    });
-  });
-}
-
-function onValueChange(input, id) {
-  input.addEventListener("input", function (e) {
-    rulesObj.rules.map((rule) => {
-      if (rule.id === id) {
-        rule.value = e.target.value;
-      }
-    });
-  });
-}
-
-function onDeleteRule(deleteRule, id) {
-  deleteRule.addEventListener("click", function () {
-    rulesObj.rules.pop(id);
-
-    const node = document.getElementById(id);
-    rulesList.removeChild(node);
-  });
-}
+document.getElementById("btn-add-rule").addEventListener("click", addRule);
