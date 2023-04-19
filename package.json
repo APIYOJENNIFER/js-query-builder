@@ -20,8 +20,10 @@
     "nanoid": "^4.0.2"
   },
   "devDependencies": {
-    "eslint": "^8.38.0",
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.25.2",
     "nwb": "0.25.x",
     "prettier": "2.8.7"
   },

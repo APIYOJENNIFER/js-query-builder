@@ -3,15 +3,11 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ["eslint:recommended", "prettier"],
+  extends: ["eslint:recommended", "airbnb-base", "prettier"],
   overrides: [],
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  rules: {
-    "no-undef": ["error"],
-    "no-use-before-define": ["error"],
-    "prefer-const": ["error"],
-  },
+  rules: {},
 };
