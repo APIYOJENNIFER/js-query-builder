@@ -1,20 +1,20 @@
-import { nanoid } from "nanoid";
-import logical from "./logical_operators";
-import comparison from "./comparison_operators";
-import studentsData from "./students_data";
-import "./styles.css";
+import { nanoid } from 'nanoid';
+import logical from './logical_operators';
+import comparison from './comparison_operators';
+import studentsData from './students_data';
+import './styles.css';
 
 const logicalArray = Object.values(logical);
 
-const logicalDropdownList = document.getElementById("logical");
+const logicalDropdownList = document.getElementById('logical');
 logicalArray.forEach((item) => {
-  const option = document.createElement("option");
+  const option = document.createElement('option');
   option.value = option.innerHTML;
   option.innerHTML = item;
   logicalDropdownList.appendChild(option);
 });
 
-const comb = "AND";
+const comb = 'AND';
 
 const rulesObj = {
   id: nanoid(),
@@ -22,7 +22,7 @@ const rulesObj = {
   rules: [],
 };
 
-logicalDropdownList.addEventListener("change", (e) => {
+logicalDropdownList.addEventListener('change', (e) => {
   rulesObj.combinator = e.target[e.target.selectedIndex].text;
 });
 
@@ -35,10 +35,10 @@ function addNewRule(field, operator, value) {
   };
 }
 
-const rulesList = document.getElementById("rules-list");
+const rulesList = document.getElementById('rules-list');
 
 function onFieldChange(selectStudentInfo, id) {
-  selectStudentInfo.addEventListener("change", (e) => {
+  selectStudentInfo.addEventListener('change', (e) => {
     rulesObj.rules.forEach((rule) => {
       if (rule.id === id) {
         const updatedFieldValue = rule;
@@ -49,7 +49,7 @@ function onFieldChange(selectStudentInfo, id) {
 }
 
 function onOperatorChange(selectComparisonOp, id) {
-  selectComparisonOp.addEventListener("change", (e) => {
+  selectComparisonOp.addEventListener('change', (e) => {
     rulesObj.rules.forEach((rule) => {
       if (rule.id === id) {
         const updatedOperatorValue = rule;
@@ -60,7 +60,7 @@ function onOperatorChange(selectComparisonOp, id) {
 }
 
 function onValueChange(input, id) {
-  input.addEventListener("input", (e) => {
+  input.addEventListener('input', (e) => {
     rulesObj.rules.forEach((rule) => {
       if (rule.id === id) {
         const updatedInputValue = rule;
@@ -71,7 +71,7 @@ function onValueChange(input, id) {
 }
 
 function onDeleteRule(deleteRule, id) {
-  deleteRule.addEventListener("click", () => {
+  deleteRule.addEventListener('click', () => {
     rulesObj.rules.pop(id);
 
     const node = document.getElementById(id);
@@ -82,13 +82,13 @@ function onDeleteRule(deleteRule, id) {
 function addRule() {
   const studentsArray = Object.values(studentsData);
 
-  const selectStudentInfo = document.createElement("select");
-  selectStudentInfo.id = "select-student-info";
-  const field = "First Name";
-  const operator = "=";
+  const selectStudentInfo = document.createElement('select');
+  selectStudentInfo.id = 'select-student-info';
+  const field = 'First Name';
+  const operator = '=';
 
   studentsArray.forEach((info) => {
-    const studentOption = document.createElement("option");
+    const studentOption = document.createElement('option');
     studentOption.value = studentOption.innerHTML;
     studentOption.innerHTML = info;
     selectStudentInfo.appendChild(studentOption);
@@ -96,27 +96,27 @@ function addRule() {
 
   const comparisonArray = Object.values(comparison);
 
-  const selectComparisonOp = document.createElement("select");
-  selectComparisonOp.id = "select-comp-op";
+  const selectComparisonOp = document.createElement('select');
+  selectComparisonOp.id = 'select-comp-op';
 
   comparisonArray.forEach((comp) => {
-    const comparisonOption = document.createElement("option");
+    const comparisonOption = document.createElement('option');
     comparisonOption.value = comparisonOption.innerHTML;
     comparisonOption.innerHTML = comp;
     selectComparisonOp.appendChild(comparisonOption);
   });
 
-  const input = document.createElement("input");
-  input.id = "input-value";
+  const input = document.createElement('input');
+  input.id = 'input-value';
   const { value } = input;
 
-  const deleteRule = document.createElement("button");
-  deleteRule.id = "btn-delete-rule";
-  deleteRule.appendChild(document.createTextNode("DELETE"));
+  const deleteRule = document.createElement('button');
+  deleteRule.id = 'btn-delete-rule';
+  deleteRule.appendChild(document.createTextNode('DELETE'));
 
   rulesObj.rules.push(addNewRule(field, operator, value));
 
-  let id = "";
+  let id = '';
   const getId = () => {
     rulesObj.rules.map((rule) => {
       id = rule.id;
@@ -126,7 +126,7 @@ function addRule() {
 
   getId();
 
-  const li = document.createElement("li");
+  const li = document.createElement('li');
   li.id = id;
   li.appendChild(selectStudentInfo);
   li.appendChild(selectComparisonOp);
@@ -140,4 +140,4 @@ function addRule() {
   onDeleteRule(deleteRule, id);
 }
 
-document.getElementById("btn-add-rule").addEventListener("click", addRule);
+document.getElementById('btn-add-rule').addEventListener('click', addRule);

@@ -1,5 +1,5 @@
 body {
-  font-family: "Times New Roman", Times, serif;
+  font-family: 'Times New Roman', Times, serif;
   display: flex;
   justify-content: center;
 }
@@ -38,7 +38,7 @@ hr {
   border: 1px solid gainsboro;
   border-radius: 2px;
   font-size: 14px;
-  font-family: "Times New Roman", Times, serif;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 #btn-add-rule {
@@ -49,7 +49,7 @@ hr {
   color: white;
   font-size: 14px;
   background-color: rgb(80, 158, 80);
-  font-family: "Times New Roman", Times, serif;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 #rules-list {
@@ -63,7 +63,7 @@ hr {
   border: 1px solid gainsboro;
   border-radius: 2px;
   font-size: 16px;
-  font-family: "Times New Roman", Times, serif;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 #select-comp-op {
@@ -80,7 +80,7 @@ hr {
   border: 1px solid gainsboro;
   border-radius: 2px;
   font-size: 16px;
-  font-family: "Times New Roman", Times, serif;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 #btn-delete-rule {
@@ -92,5 +92,5 @@ hr {
   color: white;
   font-size: 14px;
   background-color: rgb(166, 78, 78);
-  font-family: "Times New Roman", Times, serif;
+  font-family: 'Times New Roman', Times, serif;
 }

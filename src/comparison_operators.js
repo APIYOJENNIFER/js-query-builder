@@ -1,8 +1,8 @@
 const comparison = {
-  equal: "=",
-  notequal: "!=",
-  lessthan: "<",
-  greaterthan: ">",
+  equal: '=',
+  notequal: '!=',
+  lessthan: '<',
+  greaterthan: '>',
 };
 
 export default comparison;
