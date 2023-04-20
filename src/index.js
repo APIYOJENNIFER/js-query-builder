@@ -1,32 +1,30 @@
 import { nanoid } from 'nanoid';
-import logical from './logical_operators';
-import comparison from './comparison_operators';
-import studentsData from './students_data';
+import logicalOperators from './logicalOperators';
+import comparisonOperators from './comparisonOperators';
+import studentsInfo from './studentsInfo';
 import './styles.css';
 
-const logicalArray = Object.values(logical);
-
 const logicalDropdownList = document.getElementById('logical');
-logicalArray.forEach((item) => {
+logicalOperators.forEach((item) => {
   const option = document.createElement('option');
   option.value = option.innerHTML;
   option.innerHTML = item;
   logicalDropdownList.appendChild(option);
 });
 
-const comb = 'AND';
+const combinator = 'AND';
 
-const rulesObj = {
+const queryObject = {
   id: nanoid(),
-  combinator: comb,
+  combinator,
   rules: [],
 };
 
 logicalDropdownList.addEventListener('change', (e) => {
-  rulesObj.combinator = e.target[e.target.selectedIndex].text;
+  queryObject.combinator = e.target[e.target.selectedIndex].text;
 });
 
-function addNewRule(field, operator, value) {
+function ruleObject(field, operator, value) {
   return {
     id: nanoid(),
     field,
@@ -39,7 +37,7 @@ const rulesList = document.getElementById('rules-list');
 
 function onFieldChange(selectStudentInfo, id) {
   selectStudentInfo.addEventListener('change', (e) => {
-    rulesObj.rules.forEach((rule) => {
+    queryObject.rules.forEach((rule) => {
       if (rule.id === id) {
         const updatedFieldValue = rule;
         updatedFieldValue.field = e.target[e.target.selectedIndex].text;
@@ -48,9 +46,9 @@ function onFieldChange(selectStudentInfo, id) {
   });
 }
 
-function onOperatorChange(selectComparisonOp, id) {
-  selectComparisonOp.addEventListener('change', (e) => {
-    rulesObj.rules.forEach((rule) => {
+function onOperatorChange(selectComparisonOperator, id) {
+  selectComparisonOperator.addEventListener('change', (e) => {
+    queryObject.rules.forEach((rule) => {
       if (rule.id === id) {
         const updatedOperatorValue = rule;
         updatedOperatorValue.operator = e.target[e.target.selectedIndex].text;
@@ -61,7 +59,7 @@ function onOperatorChange(selectComparisonOp, id) {
 
 function onValueChange(input, id) {
   input.addEventListener('input', (e) => {
-    rulesObj.rules.forEach((rule) => {
+    queryObject.rules.forEach((rule) => {
       if (rule.id === id) {
         const updatedInputValue = rule;
         updatedInputValue.value = e.target.value;
@@ -72,39 +70,38 @@ function onValueChange(input, id) {
 
 function onDeleteRule(deleteRule, id) {
   deleteRule.addEventListener('click', () => {
-    rulesObj.rules.pop(id);
+    queryObject.rules = queryObject.rules.filter((rule) => rule.id !== id);
 
     const node = document.getElementById(id);
     rulesList.removeChild(node);
   });
 }
 
-function addRule() {
-  const studentsArray = Object.values(studentsData);
+function createSelectElement(dropDownData, id) {
+  const selectElement = document.createElement('select');
+  selectElement.id = id;
 
-  const selectStudentInfo = document.createElement('select');
-  selectStudentInfo.id = 'select-student-info';
+  dropDownData.forEach((item) => {
+    const option = document.createElement('option');
+    option.value = option.innerHTML;
+    option.innerHTML = item;
+    selectElement.appendChild(option);
+  });
+  return selectElement;
+}
+
+function addRule() {
   const field = 'First Name';
   const operator = '=';
 
-  studentsArray.forEach((info) => {
-    const studentOption = document.createElement('option');
-    studentOption.value = studentOption.innerHTML;
-    studentOption.innerHTML = info;
-    selectStudentInfo.appendChild(studentOption);
-  });
-
-  const comparisonArray = Object.values(comparison);
-
-  const selectComparisonOp = document.createElement('select');
-  selectComparisonOp.id = 'select-comp-op';
-
-  comparisonArray.forEach((comp) => {
-    const comparisonOption = document.createElement('option');
-    comparisonOption.value = comparisonOption.innerHTML;
-    comparisonOption.innerHTML = comp;
-    selectComparisonOp.appendChild(comparisonOption);
-  });
+  const selectStudentInfo = createSelectElement(
+    studentsInfo,
+    'select-student-info',
+  );
+  const selectComparisonOperator = createSelectElement(
+    comparisonOperators,
+    'select-comparison-operator',
+  );
 
   const input = document.createElement('input');
   input.id = 'input-value';
@@ -114,30 +111,22 @@ function addRule() {
   deleteRule.id = 'btn-delete-rule';
   deleteRule.appendChild(document.createTextNode('DELETE'));
 
-  rulesObj.rules.push(addNewRule(field, operator, value));
+  queryObject.rules.push(ruleObject(field, operator, value));
 
-  let id = '';
-  const getId = () => {
-    rulesObj.rules.map((rule) => {
-      id = rule.id;
-      return id;
-    });
-  };
-
-  getId();
+  const { id: idx } = queryObject.rules[queryObject.rules.length - 1];
 
   const li = document.createElement('li');
-  li.id = id;
+  li.id = idx;
   li.appendChild(selectStudentInfo);
-  li.appendChild(selectComparisonOp);
+  li.appendChild(selectComparisonOperator);
   li.appendChild(input);
   li.appendChild(deleteRule);
   rulesList.appendChild(li);
 
-  onFieldChange(selectStudentInfo, id);
-  onOperatorChange(selectComparisonOp, id);
-  onValueChange(input, id);
-  onDeleteRule(deleteRule, id);
+  onFieldChange(selectStudentInfo, idx);
+  onOperatorChange(selectComparisonOperator, idx);
+  onValueChange(input, idx);
+  onDeleteRule(deleteRule, idx);
 }
 
 document.getElementById('btn-add-rule').addEventListener('click', addRule);
