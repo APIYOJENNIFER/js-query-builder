@@ -36,6 +36,7 @@ logicalDropdownList.addEventListener('change', (e) => {
 // }
 
 const rulesList = document.getElementById('rules-list');
+const arrayRules = [];
 
 document.getElementById('btn-add-rule').addEventListener('click', () => {
   // addRule.addRule(
@@ -49,7 +50,13 @@ document.getElementById('btn-add-rule').addEventListener('click', () => {
   const newRule = new Rule(li);
   rulesList.appendChild(li);
 
-  newRule.getFieldElement.addEventListener('change', () => {
-    console.log('Changed!', newRule.field);
+  newRule.onChangeField((value) => {
+    console.log('Changed!', value);
   });
+
+  newRule.onDelete(() => {
+    li.remove();
+  });
+
+  arrayRules.push(newRule);
 });

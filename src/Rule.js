@@ -86,6 +86,9 @@ export default class Rule {
     if (this.fieldSelect) {
       this.fieldSelect.addEventListener('change', (event) => {
         this.field = event.target.value;
+        if (this.onChangeFieldCallback) {
+          this.onChangeFieldCallback(this.field);
+        }
       });
     }
 
@@ -100,5 +103,13 @@ export default class Rule {
         this.value = event.target.value;
       });
     }
+  }
+
+  onChangeField(callback) {
+    this.onChangeFieldCallback = callback;
+  }
+
+  onDelete(callback) {
+    this.onDeleteCallback = callback;
   }
 }
