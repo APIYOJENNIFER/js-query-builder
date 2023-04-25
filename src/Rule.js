@@ -32,6 +32,18 @@ export default class Rule {
     return selectElement;
   }
 
+  get getFieldElement() {
+    return this.fieldSelect;
+  }
+
+  get getValueElement() {
+    return this.valueElement;
+  }
+
+  get getComparisonElement() {
+    return this.comparisonSelect;
+  }
+
   init() {
     this.createFieldSelect().createOperatorSelect().createValueInput();
     this.addElementsToWrapper();

@@ -1,12 +1,10 @@
 import { nanoid } from 'nanoid';
 import logicalOperators from './logicalOperators';
-import comparisonOperators from './comparisonOperators';
-import studentsInfo from './studentsInfo';
 import './styles.css';
-import AddRule from './AddRule';
+// import AddRule from './AddRule';
 import Rule from './Rule';
 
-const addRule = new AddRule();
+// const addRule = new AddRule();
 
 const logicalDropdownList = document.getElementById('logical');
 logicalOperators.forEach((item) => {
@@ -28,14 +26,14 @@ logicalDropdownList.addEventListener('change', (e) => {
   queryObject.combinator = e.target[e.target.selectedIndex].text;
 });
 
-function ruleObject(field, operator, value) {
-  return {
-    id: nanoid(),
-    field,
-    operator,
-    value,
-  };
-}
+// function ruleObject(field, operator, value) {
+//   return {
+//     id: nanoid(),
+//     field,
+//     operator,
+//     value,
+//   };
+// }
 
 const rulesList = document.getElementById('rules-list');
 
@@ -51,5 +49,7 @@ document.getElementById('btn-add-rule').addEventListener('click', () => {
   const newRule = new Rule(li);
   rulesList.appendChild(li);
 
-  console.log(newRule);
+  newRule.getFieldElement.addEventListener('change', () => {
+    console.log('Changed!');
+  });
 });
