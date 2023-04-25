@@ -14,6 +14,7 @@ export default class Rule {
     this.comparisonSelect = null;
     this.fieldSelect = null;
     this.valueElement = null;
+    this.deleteElement = null;
 
     // properly initialise rule
     this.init();
@@ -44,14 +45,24 @@ export default class Rule {
     return this.comparisonSelect;
   }
 
+  get getDeleteElement() {
+    return this.deleteElement;
+  }
+
   init() {
-    this.createFieldSelect().createOperatorSelect().createValueInput();
+    this.createFieldSelect()
+      .createOperatorSelect()
+      .createValueInput()
+      .createDeleteElement();
     this.addElementsToWrapper();
     this.addEventListeners();
   }
 
   createFieldSelect() {
-    this.fieldSelect = Rule.createSelectElement(studentsInfo, 'select-student-info');
+    this.fieldSelect = Rule.createSelectElement(
+      studentsInfo,
+      'select-student-info',
+    );
 
     return this;
   }
@@ -72,11 +83,20 @@ export default class Rule {
     return this;
   }
 
+  createDeleteElement() {
+    this.deleteElement = document.createElement('button');
+    this.deleteElement.id = 'btn-delete-rule';
+    this.deleteElement.appendChild(document.createTextNode('DELETE'));
+
+    return this;
+  }
+
   addElementsToWrapper() {
     if (this.wrapper) {
       this.wrapper.appendChild(this.fieldSelect);
       this.wrapper.appendChild(this.comparisonSelect);
       this.wrapper.appendChild(this.valueElement);
+      this.wrapper.appendChild(this.deleteElement);
     } else {
       throw new Error('A wrapper element is required!');
     }
@@ -95,18 +115,40 @@ export default class Rule {
     if (this.comparisonSelect) {
       this.comparisonSelect.addEventListener('change', (event) => {
         this.operator = event.target.value;
+        if (this.onChangeComparisonCallback) {
+          this.onChangeComparisonCallback(this.operator);
+        }
       });
     }
 
     if (this.valueElement) {
       this.valueElement.addEventListener('change', (event) => {
         this.value = event.target.value;
+        if (this.onChangeValueCallback) {
+          this.onChangeValueCallback(this.value);
+        }
+      });
+    }
+
+    if (this.deleteElement) {
+      this.deleteElement.addEventListener('click', () => {
+        if (this.onDeleteCallback) {
+          this.onDeleteCallback();
+        }
       });
     }
   }
 
   onChangeField(callback) {
     this.onChangeFieldCallback = callback;
+  }
+
+  onChangeComparison(callback) {
+    this.onChangeComparisonCallback = callback;
+  }
+
+  onChangeValue(callback) {
+    this.onChangeValueCallback = callback;
   }
 
   onDelete(callback) {
