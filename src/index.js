@@ -4,6 +4,7 @@ import comparisonOperators from './comparisonOperators';
 import studentsInfo from './studentsInfo';
 import './styles.css';
 import AddRule from './AddRule';
+import Rule from './Rule';
 
 const addRule = new AddRule();
 
@@ -39,11 +40,16 @@ function ruleObject(field, operator, value) {
 const rulesList = document.getElementById('rules-list');
 
 document.getElementById('btn-add-rule').addEventListener('click', () => {
-  addRule.addRule(
-    queryObject,
-    ruleObject,
-    rulesList,
-    studentsInfo,
-    comparisonOperators,
-  );
+  // addRule.addRule(
+  //   queryObject,
+  //   ruleObject,
+  //   rulesList,
+  //   studentsInfo,
+  //   comparisonOperators,
+  // );
+  const li = document.createElement('li');
+  const newRule = new Rule(li);
+  rulesList.appendChild(li);
+
+  console.log(newRule);
 });
