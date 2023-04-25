@@ -50,6 +50,6 @@ document.getElementById('btn-add-rule').addEventListener('click', () => {
   rulesList.appendChild(li);
 
   newRule.getFieldElement.addEventListener('change', () => {
-    console.log('Changed!');
+    console.log('Changed!', newRule.field);
   });
 });

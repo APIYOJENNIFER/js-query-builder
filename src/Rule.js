@@ -25,7 +25,7 @@ export default class Rule {
 
     dropDownData.forEach((item) => {
       const option = document.createElement('option');
-      option.value = option.innerHTML;
+      option.value = item;
       option.innerHTML = item;
       selectElement.appendChild(option);
     });
@@ -47,6 +47,7 @@ export default class Rule {
   init() {
     this.createFieldSelect().createOperatorSelect().createValueInput();
     this.addElementsToWrapper();
+    this.addEventListeners();
   }
 
   createFieldSelect() {
@@ -78,6 +79,26 @@ export default class Rule {
       this.wrapper.appendChild(this.valueElement);
     } else {
       throw new Error('A wrapper element is required!');
+    }
+  }
+
+  addEventListeners() {
+    if (this.fieldSelect) {
+      this.fieldSelect.addEventListener('change', (event) => {
+        this.field = event.target.value;
+      });
+    }
+
+    if (this.comparisonSelect) {
+      this.comparisonSelect.addEventListener('change', (event) => {
+        this.operator = event.target.value;
+      });
+    }
+
+    if (this.valueElement) {
+      this.valueElement.addEventListener('change', (event) => {
+        this.value = event.target.value;
+      });
     }
   }
 }
