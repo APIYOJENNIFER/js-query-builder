@@ -24,24 +24,13 @@ logicalDropdownList.addEventListener('change', (e) => {
   queryObject.combinator = e.target.value;
 });
 
-function ruleObject(field, operator, value) {
-  return {
-    id: nanoid(),
-    field,
-    operator,
-    value,
-  };
-}
-
 const rulesList = document.getElementById('rules-list');
 const arrayRules = {};
 
 document.getElementById('btn-add-rule').addEventListener('click', () => {
   const addRule = new AddRule();
 
-  queryObject.rules.push(
-    ruleObject(addRule.getField, addRule.getOperator, addRule.getValue),
-  );
+  queryObject.rules.push(addRule.createRuleObject());
 
   const { id: idx } = queryObject.rules[queryObject.rules.length - 1];
 
