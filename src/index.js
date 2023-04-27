@@ -1,27 +1,14 @@
-import { nanoid } from 'nanoid';
-import logicalOperators from './logicalOperators';
 import './styles.css';
 import AddRule from './AddRule';
 import Rule from './Rule';
+import Query from './Query';
 
-const logicalDropdownList = document.getElementById('logical');
-logicalOperators.forEach((item) => {
-  const option = document.createElement('option');
-  option.value = item;
-  option.innerHTML = item;
-  logicalDropdownList.appendChild(option);
-});
+const query = new Query();
 
-const combinator = 'AND';
+const queryObject = query.getQueryObject();
 
-const queryObject = {
-  id: nanoid(),
-  combinator,
-  rules: [],
-};
-
-logicalDropdownList.addEventListener('change', (e) => {
-  queryObject.combinator = e.target.value;
+query.onChangeLogical((value) => {
+  queryObject.combinator = value;
 });
 
 const rulesList = document.getElementById('rules-list');
@@ -30,7 +17,7 @@ const arrayRules = {};
 document.getElementById('btn-add-rule').addEventListener('click', () => {
   const addRule = new AddRule();
 
-  queryObject.rules.push(addRule.createRuleObject());
+  queryObject.rules.push(addRule.getRuleObject());
 
   const { id: idx } = queryObject.rules[queryObject.rules.length - 1];
 
